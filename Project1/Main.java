@@ -3,6 +3,6 @@ public class Main{
         System.out.println("hello");
 
         QuestionService service = new QuestionService();
-        service.displayQuestions();
+        service.playQuiz();
     }
 }

@@ -1,0 +1,43 @@
+server:
+  port: 8087
+  servlet:
+    context-path: /mvc
+
+# 日志配置
+logging:
+  config: classpath:log/logback-spring.xml
+  level:
+    org.springframework: info
+    io.github.io.github.rournashike.logging: info
+spring:
+  application:
+    name: ${rootArtifactId}-app
+  profiles:
+    active: dev
+  servlet:
+    # 文件上传
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+  boot:
+    admin:
+      client:
+        url: http://127.0.0.1:1090
+        instance:
+          prefer-ip: true
+        register-once: false
+        username: admin
+        password: admin
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    shutdown:
+      enabled: true #开启端点
+    health:
+      show-details: always  # 是否展示健康检查详情

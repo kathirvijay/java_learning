@@ -1,0 +1,51 @@
+server:
+  port: 8087
+
+# 日志配置
+logging:
+  config: classpath:log/logback-spring.xml
+  level:
+    org.springframework: error
+    com.mytest.rabbitmq.consumer: info
+spring:
+  application:
+    name: springboot-mq-consumer
+  rabbitmq:
+    host: 192.168.239.181
+    port: 5672
+    username: root
+    password: root
+    virtual-host: rabbitmq-server
+    connection-timeout: 10000
+    # 消息队列将消息发送给消息消费者- 消息消费者ACK就是确认是否成功【】
+    # 1、NONE：自动确认(也就是不确认)-会在消息发送给消费者后立即确认，但存在丢失消息的可能(无论业务是否有异常都消费成功)
+    # 2、AUTO：根据情况确认-消费者有异常消息回退、无异常确认为消息消费成功(rabbitmq默认为auto)
+    # 3、MANUAL：手动确认-抛出一次异常，消息未丢失，一直处于Unacked状态，消息不会再发送给该消费者，如果强行关闭该消费者应用，消息变为Ready状态
+    listener:
+      simple:
+        acknowledge-mode: manual
+        concurrency: 5 # 消费端的监听个数(即@RabbitListener开启几个线程去处理数据。)
+        max-concurrency: 10 # 消费端的监听最大个数
+        # 一次拉取多少条消息
+        prefetch: 100
+        retry:
+          multiplier: 1
+          max-attempts: 3
+          enabled: true
+      # 表示监听的类型 主要有两种 simple和direct
+      type: simple
+    publisher-confirm-type: correlated
+    publisher-returns: true
+  redis:
+    # Redis服务器地址
+    host: 127.0.0.1
+    # Redis服务器端口号
+    port: 6379
+    # 使用的数据库索引，默认是0
+    database: 0
+    # 连接超时时间
+    timeout: 5000
+    # 设置密码
+#    password: "123456"
+mybatis:
+  mapper-locations: classpath:mapper/*.xml

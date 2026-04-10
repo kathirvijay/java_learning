@@ -1,0 +1,33 @@
+server:
+  port: 1090
+spring:
+  application:
+    name: admin-server
+  security:
+    user:
+      name: admin
+      password: admin
+  boot:
+    admin:
+      notify:
+        pagerduty:
+          client-url: http://127.0.0.1:1090/
+        proxy:
+          password: admin
+          username: admin
+        mail:
+          from: 2057473561@qq.com
+          to: 2057473561@qq.com
+  mail:
+    default-encoding: UTF-8
+    host: smtp.sina.com
+    username: alexlqx@sina.com
+    password: 65d0ee3a806ff5ff
+    protocol: smtps
+    test-connection: false
+    port: 465
+    properties:
+      mail:
+        smtp:
+          ssl:
+            enable: true
