@@ -1,26 +1,36 @@
 package org.hibernatekathir;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "student_table")
 public class Student {
-    private int rollno;
+
+
+    @Id
+    @Column(name = "roll_no")
+    private int id;
     private String name;
     private int marks;
+    @OneToOne
+    private Laptop laptop;
 
 
     @Override
     public String toString() {
         return "Student{" +
-                "rollno=" + rollno +
+                "id=" + id +
                 ", name='" + name + '\'' +
                 ", marks=" + marks +
                 '}';
     }
 
     public int getRollno() {
-        return rollno;
+        return id;
     }
 
-    public void setRollno(int rollno) {
-        this.rollno = rollno;
+    public void setRollno(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -37,5 +47,13 @@ public class Student {
 
     public void setMarks(int marks) {
         this.marks = marks;
+    }
+
+    public Laptop getLaptop() {
+        return laptop;
+    }
+
+    public void setLaptop(Laptop laptop) {
+        this.laptop = laptop;
     }
 }
