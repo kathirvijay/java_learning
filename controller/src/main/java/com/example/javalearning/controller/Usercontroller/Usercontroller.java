@@ -3,6 +3,8 @@ package com.example.javalearning.controller.Usercontroller;
 
 import com.example.javalearning.controller.component.Health;
 import com.example.javalearning.controller.component.User;
+import com.example.javalearning.controller.entity.User_entity;
+import com.example.javalearning.controller.model.Usermodel;
 import com.example.javalearning.controller.service.ApiResponce;
 import com.example.javalearning.controller.service.Userservice;
 import org.springframework.http.ResponseEntity;
@@ -56,14 +58,14 @@ public class Usercontroller {
         return ResponseEntity.status(200).body(response);
     }
 
-    @GetMapping("/user")
-    public ResponseEntity<String> getUser(){
-        return ResponseEntity.status(400).body(this.userService.getUser());
+    @PostMapping("/user")
+    public User_entity createUser(@RequestBody User_entity user){
+        return this.userService.Usercreate(user);
     }
 
-    @PostMapping("/user")
-    public String createUser(@RequestBody User user){
-        return this.userService.Usercreate(user);
+    @GetMapping("/alluser")
+    public ResponseEntity<ApiResponce<?>> getUser(){
+        return ResponseEntity.status(200).body(this.userService.getAllUser());
     }
 
     @GetMapping("/user/{id}")

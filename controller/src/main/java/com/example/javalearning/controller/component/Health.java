@@ -1,5 +1,8 @@
 package com.example.javalearning.controller.component;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class Health<Data> {
     private String name;
     private String State;

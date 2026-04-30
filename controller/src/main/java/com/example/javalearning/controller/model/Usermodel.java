@@ -1,18 +1,10 @@
-package com.example.javalearning.controller.entity;
+package com.example.javalearning.controller.model;
 
-import jakarta.persistence.*;
-
-
-@Entity
-@Table(name="java_user")
-public class User_entity {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class Usermodel {
     private int id;
     private String name;
-    private int age;
     private String place;
+    private int age;
 
     public int getId() {
         return id;
@@ -22,20 +14,20 @@ public class User_entity {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getPlace() {
         return place;
     }
 
     public void setPlace(String place) {
         this.place = place;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getAge() {

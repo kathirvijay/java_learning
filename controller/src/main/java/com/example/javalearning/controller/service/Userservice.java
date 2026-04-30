@@ -1,33 +1,42 @@
 package com.example.javalearning.controller.service;
 
 import com.example.javalearning.controller.component.User;
+import com.example.javalearning.controller.entity.User_entity;
+import com.example.javalearning.controller.repository.User_repository;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class Userservice {
     public User user;
 
-//    public Userservice(User user) {
-//        this.user = user;
-//    }
+    public final User_repository repo;
 
-    public String getUser() {
-        if (user == null) {
-            return "No user has been created yet!";
-        }
-        return "The User " + user.getName() + " of age " + user.getAge() +
-                " living in " + user.getPlace() +
-                " has provided user id " + user.getUser_no();
-    }
-
-    public String Usercreate(User user) {
-//        this.user.setName(user.getName());
-//        this.user.setAge(user.getAge());
-//        this.user.setUser_no(user.getUser_no());
-//        this.user.setPlace(user.getPlace());
+    public Userservice(User_repository userRepo, User user){
+        this.repo = userRepo;
         this.user = user;
-        return this.user.getName() + " Has been created successfully !!!";
     }
 
+    public User_entity Usercreate(User_entity user) {
+        return repo.save(user);
+    }
+
+    public ApiResponce<?> getAllUser() {
+        List<User_entity> data = repo.findAll();
+
+        ApiResponce res = new ApiResponce();
+        if (data.isEmpty()) {
+            res.setMessage("No data to show!!!");
+            res.setData(null);
+            res.setSuccess(true);
+            return res;
+        } else {
+            res.setMessage("List of users returned successfully!!!");
+            res.setData(res);
+            res.setSuccess(true);
+            return res;
+        }
+    }
 }
 
